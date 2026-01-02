@@ -1,0 +1,76 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "(gdb) Attach",
+      "type": "cppdbg",
+      "request": "attach",
+      "program": "enter program name, for example ${workspaceFolder}/a.exe",
+      "MIMode": "gdb",
+      "miDebuggerPath": "/path/to/gdb",
+      "setupCommands": [
+          {
+              "description": "Enable pretty-printing for gdb",
+              "text": "-enable-pretty-printing",
+              "ignoreFailures": true
+          },
+          {
+              "description": "Set Disassembly Flavor to Intel",
+              "text": "-gdb-set disassembly-flavor intel",
+              "ignoreFailures": true
+          }
+      ]
+    },
+    
+    {
+      "name": "Attach to Local MCP",
+      "type": "node",
+      "request": "attach",
+      "port": 9239,
+      "restart": true,
+      "presentation": {
+        "hidden": true
+      },
+      "internalConsoleOptions": "neverOpen",
+      "postDebugTask": "Terminate All Tasks"
+    },
+        {
+      "name": "Launch Inspector with STDIO settings",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev:inspector:stdio"
+      ],
+      "skipFiles": ["<node_internals>/**"],
+      "console": "integratedTerminal",
+      "presentation": {
+        "hidden": true
+      },
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Debug in Agent Builder",
+      "configurations": [
+        "Attach to Local MCP"
+      ],
+      "preLaunchTask": "Open Agent Builder",
+    },
+    {
+      "name": "Debug StreamableHTTP in Inspector",
+      "configurations": [
+        "Attach to Local MCP"
+      ],
+      "preLaunchTask": "Start MCP Inspector",
+    },
+    {
+      "name": "Debug STDIO in Inspector",
+      "configurations": [
+        "Launch Inspector with STDIO settings"
+      ],
+      "stopAll": true
+    }
+  ]
+}

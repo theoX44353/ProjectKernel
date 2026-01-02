@@ -1,0 +1,18 @@
+class Test:
+    def __init__(self):
+        self.ref = func
+        self.prop = 1
+
+    def __call__(self):
+        pass
+
+
+def func():
+    pass
+
+
+obj = object()
+
+test = Test()  # "test" should colorize as an object, not a function
+test.ref  # "ref" should colorize as a function, not a property
+another_ref = test.ref  # "another_ref" correctly colorizes as a function

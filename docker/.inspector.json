@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "docker_stdio": {
+      "type": "stdio",
+      "command": "npm",
+      "args": ["--silent", "run", "dev:stdio"]
+    },
+    "docker_http": {
+      "type": "streamable-http",
+      "url": "http://localhost:3001/mcp"
+    }
+  }
+}
